@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,17 @@
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="/actuator/health" target="_blank">Health</a>
                 <a class="nav-link" href="/api/hello">API</a>
+
+                <form method="get" th:action="@{/}" class="d-flex ms-3">
+                <select name="lang" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                    <option value="es" th:selected="${#locale.language == 'es'}">Español</option>
+                    <option value="fr" th:selected="${#locale.language == 'fr'}">Français</option>
+                </select>
+                </form>
+                <button id="themeToggleBtn" class="btn btn-outline-light ms-3">
+                    <i class="bi bi-moon"></i> <span th:text="#{app.theme}">Theme</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -31,7 +42,7 @@
                 <div class="card shadow">
                     <div class="card-body text-center p-5">
                         <img class="d-block mx-auto mb-4 main-logo" src="/assets/logo.svg" alt="Universidad Zaragoza Logo">
-                        <h1 class="display-4 fw-bold text-primary mb-4">Welcome to Modern Web App</h1>
+                        <h1 class="display-4 fw-bold text-primary mb-4" th:text="#{app.title}">Welcome to Modern Web App</h1>
                         <p class="lead mb-4" th:text="${message}">Hello student.</p>
                         
                         <!-- HTTP Debug Section -->
@@ -39,13 +50,13 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header bg-info text-white">
-                                        <h5 class="card-title mb-0">
-                                            <i class="bi bi-code-slash"></i> Interactive HTTP Testing & Debug
-                                            <small class="float-end">Client-Side Educational Tool</small>
+                                        <h5 class="card-title mb-0" >
+                                            <i class="bi bi-code-slash" ></i> <span th:text="#{app.interactive}">Interactive HTTP Testing & Debug</span>
+                                            <small class="float-end" th:text="#{app.client}">Client-Side Educational Tool</small>
                                         </h5>
                                     </div>
                                     <div class="card-body">
-                                        <p class="text-muted mb-3">
+                                        <p class="text-muted mb-3" th:text="#{app.explain}">
                                             This section demonstrates HTTP requests and responses using JavaScript Fetch API. 
                                             All interactions below will show real HTTP communication in action!
                                         </p>
@@ -55,22 +66,22 @@
                                             <div class="col-md-4">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">Web Page Greeting</h6>
-                                                        <p class="small text-muted">Test the main web page with personalized greeting</p>
+                                                        <h6 class="card-title" th:text="#{app.greetingg}">Web Page Greeting</h6>
+                                                        <p class="small text-muted" th:text="#{app.greeting2}">Test the main web page with personalized greeting</p>
                                                         <div class="mb-3">
                                                             <input type="text" id="webName" class="form-control" placeholder="Enter your name" th:value="${name}">
                                                         </div>
-                                                        <button id="testWebBtn" class="btn btn-primary w-100">Test Web Page</button>
+                                                        <button id="testWebBtn" class="btn btn-primary w-100" th:text="#{app.twp}">Test Web Page</button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                         <h6 class="card-title">API Endpoints</h6>
-                                                        <p class="small text-muted">Test the REST API with JSON response</p>
+                                                         <h6 class="card-title" th:text="#{app.ep}">API Endpoints</h6>
+                                                        <p class="small text-muted" th:text="#{app.testAPI}">Test the REST API with JSON response</p>
                                                         <div class="mb-3">
-                                                            <input type="text" id="apiName" class="form-control" placeholder="Enter name (optional)" value="Student">
+                                                            <input type="text" id="apiName" class="form-control" placeholder="Enter name (optional)" value="">
                                                         </div>
                                                         <button id="testApiBtn" class="btn btn-success w-100">Test /api/hello</button>
                                                     </div>
@@ -79,12 +90,12 @@
                                             <div class="col-md-4">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">Health Check</h6>
-                                                        <p class="small text-muted">Test the application health endpoint</p>
+                                                        <h6 class="card-title" th:text="#{app.check}">Health Check</h6>
+                                                        <p class="small text-muted" th:text="#{app.tcheck}">Test the application health endpoint</p>
                                                         <div class="mb-3">
                                                             <button id="testHealthBtn" class="btn btn-warning w-100">Test /actuator/health</button>
                                                         </div>
-                                                        <button id="openDevToolsBtn" class="btn btn-outline-info w-100">How to Open Dev Tools</button>
+                                                        <button id="openDevToolsBtn" class="btn btn-outline-info w-100" th:text="#{app.dev}">How to Open Dev Tools</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -94,19 +105,19 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <h6 class="text-primary text-start">
-                                                    <i class="bi bi-arrow-right-circle"></i> HTTP Request
+                                                    <i class="bi bi-arrow-right-circle"></i> <span th:text="#{app.httpr}"> HTTP Request </span> 
                                                 </h6>
                                                 <div id="requestInfo" class="bg-light p-3 rounded text-start http-debug-request">
-                                                    <div class="text-muted">Click a test button above to see HTTP request details...</div>
+                                                    <div class="text-muted" th:text="#{app.test}">Click a test button above to see HTTP request details...</div>
                                                 </div>
                                             </div>
                                             
                                             <div class="col-md-6">
                                                 <h6 class="text-success text-start">
-                                                    <i class="bi bi-arrow-left-circle"></i> HTTP Response
+                                                    <i class="bi bi-arrow-left-circle"></i> <span  th:text="#{app.res}">HTTP Response</span>
                                                 </h6>
                                                 <div id="responseInfo" class="bg-light p-3 rounded text-start http-debug-response">
-                                                    <div class="text-muted">Click a test button above to see HTTP response details...</div>
+                                                    <div class="text-muted" th:text="#{app.test}">Click a test button above to see HTTP response details...</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -114,14 +125,14 @@
                                         <div class="mt-3">
                                             <div class="alert alert-info text-start">
                                                 <h6 class="alert-heading text-start">
-                                                    <i class="bi bi-lightbulb"></i> Learning Notes:
+                                                    <i class="bi bi-lightbulb"></i><span th:text="#{app.notes}"> Learning Notes:</span> 
                                                 </h6>
                                                 <ul class="mb-0 text-start">
-                                                    <li><strong>Fetch API:</strong> Modern JavaScript way to make HTTP requests</li>
-                                                    <li><strong>Promise-based:</strong> Asynchronous operations using .then() and async/await</li>
-                                                    <li><strong>JSON Response:</strong> API endpoints return structured data</li>
-                                                    <li><strong>Status Codes:</strong> 200 = success, 404 = not found, 500 = server error</li>
-                                                    <li><strong>Headers:</strong> Metadata sent with every request and response</li>
+                                                    <li><strong th:text="#{app.fetch}">Fetch API: </strong><span th:text="#{app.fetchexp}"> Modern JavaScript way to make HTTP requests</span> </li>
+                                                    <li><strong th:text="#{app.prom}">Promise-based: </strong><span th:text="#{app.promexp}"> Asynchronous operations using .then() and async/await</span></li>
+                                                    <li><strong th:text="#{app.json}">JSON Response: </strong> <span th:text="#{app.jsonexp}"> API endpoints return structured data</span></li>
+                                                    <li><strong th:text="#{app.stat}">Status Codes: </strong><span th:text="#{app.statexp}"> 200 = success, 404 = not found, 500 = server error</span></li>
+                                                    <li><strong th:text="#{app.head}">Headers: </strong> <span th:text="#{app.headexp}"> Metadata sent with every request and response</span></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -160,5 +171,21 @@
             document.head.appendChild(script);
         })();
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const btn = document.getElementById("themeToggleBtn");
+            const root = document.documentElement;
+            const currentTheme = localStorage.getItem("theme") || "light";
+
+            root.setAttribute("data-bs-theme", currentTheme);
+
+            btn.addEventListener("click", function() {
+                const newTheme = root.getAttribute("data-bs-theme") === "light" ? "dark" : "light";
+                root.setAttribute("data-bs-theme", newTheme);
+                localStorage.setItem("theme", newTheme);
+            });
+        });
+    </script>
+
 </body>
 </html>
