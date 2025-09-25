@@ -40,9 +40,12 @@ class HelloApiController(
 
     @GetMapping("/api/hello", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun helloApi(
-        @RequestParam(defaultValue = "World") name: String,
+        @RequestParam(defaultValue = "") name: String,
         locale: Locale
     ): Map<String, String> {
+        if (name.isBlank()) {
+            throw IllegalArgumentException("name parameter is required")
+        }
         val greeting = messageSource.getMessage("app.greeting", arrayOf(name), locale)
         return mapOf(
             "message" to greeting,

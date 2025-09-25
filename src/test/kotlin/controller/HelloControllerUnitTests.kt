@@ -1,47 +1,47 @@
 package es.unizar.webeng.hello.controller
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.springframework.ui.Model
-import org.springframework.ui.ExtendedModelMap
+import org.mockito.Mockito.*
+import org.springframework.context.MessageSource
+import org.springframework.ui.ConcurrentModel
+import java.util.*
 
 class HelloControllerUnitTests {
-    private lateinit var controller: HelloController
-    private lateinit var model: Model
-    
-    @BeforeEach
-    fun setup() {
-        controller = HelloController("Test Message")
-        model = ExtendedModelMap()
-    }
-    
+
     @Test
-    fun `should return welcome view with default message`() {
-        val view = controller.welcome(model, "")
-        
-        assertThat(view).isEqualTo("welcome")
-        assertThat(model.getAttribute("message")).isEqualTo("Test Message")
-        assertThat(model.getAttribute("name")).isEqualTo("")
+    fun `welcome returns default message`() {
+        val messageSource = mock(MessageSource::class.java)
+        val controller = HelloController(messageSource)
+        val model = ConcurrentModel()
+        val locale = Locale.getDefault()
+
+        // Mock para mensaje por defecto
+        `when`(messageSource.getMessage("app.default", null, locale))
+            .thenReturn("Welcome to the Modern Web App!")
+
+        val viewName = controller.welcome(model, "", locale)
+
+        assertEquals("welcome", viewName)
+        assertEquals("Welcome to the Modern Web App!", model.getAttribute("message"))
+        assertEquals("", model.getAttribute("name"))
     }
-    
+
     @Test
-    fun `should return welcome view with personalized message`() {
-        val view = controller.welcome(model, "Developer")
-        
-        assertThat(view).isEqualTo("welcome")
-        assertThat(model.getAttribute("message")).isEqualTo("Hello, Developer!")
-        assertThat(model.getAttribute("name")).isEqualTo("Developer")
-    }
-    
-    @Test
-    fun `should return API response with timestamp`() {
-        val apiController = HelloApiController()
-        val response = apiController.helloApi("Test")
-        
-        assertThat(response).containsKey("message")
-        assertThat(response).containsKey("timestamp")
-        assertThat(response["message"]).isEqualTo("Hello, Test!")
-        assertThat(response["timestamp"]).isNotNull()
+    fun `welcome returns personalized message`() {
+        val messageSource = mock(MessageSource::class.java)
+        val controller = HelloController(messageSource)
+        val model = ConcurrentModel()
+        val locale = Locale.getDefault()
+
+        // Mock para mensaje personalizado
+        `when`(messageSource.getMessage("app.greeting", arrayOf("Dev"), locale))
+            .thenReturn("Hello, Dev!")
+
+        val viewName = controller.welcome(model, "Dev", locale)
+
+        assertEquals("welcome", viewName)
+        assertEquals("Hello, Dev!", model.getAttribute("message"))
+        assertEquals("Dev", model.getAttribute("name"))
     }
 }

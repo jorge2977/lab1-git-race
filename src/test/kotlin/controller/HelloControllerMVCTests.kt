@@ -25,7 +25,7 @@ class HelloControllerMVCTests {
             .andDo(print())
             .andExpect(status().isOk)
             .andExpect(view().name("welcome"))
-            .andExpect(model().attribute("message", equalTo(message)))
+            .andExpect(model().attribute("message", equalTo("Hello Student")))
             .andExpect(model().attribute("name", equalTo("")))
     }
     
@@ -46,6 +46,18 @@ class HelloControllerMVCTests {
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.message", equalTo("Hello, Test!")))
+            .andExpect(jsonPath("$.timestamp").exists())
+    }
+
+    @Test
+    fun `should return API response as JSON with status 400`() {
+        mockMvc.perform(get("/api/hello"))
+            .andDo(print())
+            .andExpect(status().isBadRequest)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.error", equalTo("Bad Request")))
+            .andExpect(jsonPath("$.status", equalTo(400)))
+            .andExpect(jsonPath("$.message", equalTo("name parameter is required")))
             .andExpect(jsonPath("$.timestamp").exists())
     }
 }

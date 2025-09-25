@@ -32,7 +32,7 @@ class I18nConfig : WebMvcConfigurer {
     @Bean
     fun localeChangeInterceptor(): LocaleChangeInterceptor {
         val interceptor = LocaleChangeInterceptor()
-        interceptor.paramName = "lang"  // cambia idioma con ?lang=es
+        interceptor.paramName = "lang" 
         return interceptor
     }
 

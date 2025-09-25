@@ -44,7 +44,7 @@
                         <img class="d-block mx-auto mb-4 main-logo" src="/assets/logo.svg" alt="Universidad Zaragoza Logo">
                         <h1 class="display-4 fw-bold text-primary mb-4" th:text="#{app.title}">Welcome to Modern Web App</h1>
                         <p class="lead mb-4" th:text="${message}">Hello student.</p>
-                        
+                        <p class="lead mb-4" id="dynamicGreeting"></p>
                         <!-- HTTP Debug Section -->
                         <div class="row mt-4">
                             <div class="col-12">
@@ -135,7 +135,7 @@
                                                     <li><strong th:text="#{app.head}">Headers: </strong> <span th:text="#{app.headexp}"> Metadata sent with every request and response</span></li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div>                                                                                
                                     </div>
                                 </div>
                             </div>
@@ -184,6 +184,26 @@
                 root.setAttribute("data-bs-theme", newTheme);
                 localStorage.setItem("theme", newTheme);
             });
+        });
+    </script>
+
+    <script>
+        var morning = /*[[#{app.morning}]]*/ "Good morning";
+        var evening = /*[[#{app.evening}]]*/ "Good evening";
+        var night = /*[[#{app.night}]]*/ "Good night";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const hour = new Date().getHours();
+            let greeting = morning;
+            if (hour >= 21 || hour < 6) {
+                greeting = night;
+            } else if (hour >= 16) {
+                greeting = evening;
+            } 
+            const greetingElem = document.querySelector("#dynamicGreeting");
+            if (greetingElem) {
+                greetingElem.textContent = greeting;
+            }
         });
     </script>
 
