@@ -135,7 +135,17 @@
                                                     <li><strong th:text="#{app.head}">Headers: </strong> <span th:text="#{app.headexp}"> Metadata sent with every request and response</span></li>
                                                 </ul>
                                             </div>
-                                        </div>                                                                                
+                                        </div> 
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="card-title" th:text="#{app.ep}">API bye</h6>
+                                                <p class="small text-muted" th:text="#{app.testAPI}">Test the REST API with JSON response</p>
+                                                <div class="mb-3">
+                                                       <input type="text" id="apiName2" class="form-control" placeholder="Enter name (optional)" value="">
+                                                </div>
+                                                <button id="testApiBtn2" class="btn btn-success w-100">Test /api/bye</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

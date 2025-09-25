@@ -11,23 +11,26 @@ Time-Based Greeting: The greeting message on the welcome page now changes based 
 
 Error Handling: Created error handling, it´s been implemented in the HelloController. If the 'name' parameter is missing on the /api/hello endpoint, the application will return a 400 Bad Request status with a descriptive error message.
 
-Test Changes: The test cases have been updated to reflect the changes made in the HelloController. The tests now check for the correct handling of the 'name' parameter, including scenarios where it is missing or empty.
+Bye Endpoint: Added a new endpoint /api/bye that responds with a farewell message. Similar to the /api/hello endpoint, it accepts an optional 'name' parameter and returns a JSON response.
+
+Test Changes: The test cases have been updated to reflect the changes made in the HelloController. The tests now check for the correct handling of the 'name' parameter, including scenarios where it is missing or empty. It´s also been added tests for the new /api/bye endpoint to ensure it behaves as expected.
 
 ## Technical Decisions
-[Explanation of technical choices made]
+It´s beean created a GlobalExceptionHandler class to handle exceptions globally across the application. In this case it´s been used to handle IllegalArgumentException and return a 400 Bad Request status with a descriptive error message when the 'name' parameter is missing or empty. In general there´s no been big technical decisions, the main goal it´s been to learn about the standart and modifiy little details of the project.
 
 ## Learning Outcomes
-[What you learned from this assignment]
+From this assignment, I learned how to work with Spring Boot to create a web application. Also I got a first contact with Kotlin, a programming language that I had never used before. I learned how to create controllers, services, and repositories in Spring Boot, as well as how to handle requests and responses. Additionally, I learnt about the lenguage standart and how to implement it in a web application. The tests were also an interesting part, to understand how to write unit tests and integration tests for the application. 
 
 ## AI Disclosure
 ### AI Tools Used
 - GitHub Copilot
 
 ### AI-Assisted Work
-- [Describe what was generated with AI assistance]
-- [Percentage of AI-assisted vs. original work]
-- [Any modifications made to AI-generated code]
+- The GlobalExceptionHandler class.
+- 20% vs 80%.
+- 
 
 ### Original Work
-- [Describe work done without AI assistance]
-- [Your understanding and learning process]
+- All the modifications in the HelloController and HelloControllerMVCTests classes.
+  The I18nConfig class, the light and dark mode implementation, the Swagger UI integration, and the time-based greeting.
+- I hadn´t deal with Spring Boot before, so I had to understand each file and how they interact with each other.

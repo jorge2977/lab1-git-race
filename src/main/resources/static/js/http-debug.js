@@ -2,12 +2,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const testWebBtn = document.getElementById('testWebBtn');
     const testApiBtn = document.getElementById('testApiBtn');
+    const testApiBtn2 = document.getElementById('testApiBtn2');
     const testHealthBtn = document.getElementById('testHealthBtn');
     const openDevToolsBtn = document.getElementById('openDevToolsBtn');
     const requestInfo = document.getElementById('requestInfo');
     const responseInfo = document.getElementById('responseInfo');
     const webNameInput = document.getElementById('webName');
     const apiNameInput = document.getElementById('apiName');
+    const apiNameInput2 = document.getElementById('apiName2');
     
     // Format timestamp
     function getTimestamp() {
@@ -97,6 +99,27 @@ document.addEventListener('DOMContentLoaded', function() {
     testApiBtn.addEventListener('click', async function() {
         const name = apiNameInput.value.trim();
         const url = name ? `/api/hello?name=${encodeURIComponent(name)}` : '/api/hello';
+        
+        displayRequestInfo(url, 'GET');
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            displayResponseInfo(response.status, response.statusText, data);
+            
+            // Update the main message in the HTML app
+            if (response.ok && data.message) {
+                updateMainMessage(data.message, name);
+            }
+        } catch (error) {
+            displayResponseInfo(0, 'Network Error', { error: error.message });
+        }
+    });
+
+    testApiBtn2.addEventListener('click', async function() {
+        const name = apiNameInput2.value.trim();
+        const url = name ? `/api/bye?name=${encodeURIComponent(name)}` : '/api/bye';
         
         displayRequestInfo(url, 'GET');
         

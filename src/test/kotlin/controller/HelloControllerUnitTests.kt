@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource
 import org.springframework.ui.ConcurrentModel
 import java.util.*
 
+// Unit tests for HelloController
 class HelloControllerUnitTests {
 
     @Test
@@ -16,7 +17,7 @@ class HelloControllerUnitTests {
         val model = ConcurrentModel()
         val locale = Locale.getDefault()
 
-        // Mock para mensaje por defecto
+        // Mock for default message
         `when`(messageSource.getMessage("app.default", null, locale))
             .thenReturn("Welcome to the Modern Web App!")
 
@@ -34,7 +35,7 @@ class HelloControllerUnitTests {
         val model = ConcurrentModel()
         val locale = Locale.getDefault()
 
-        // Mock para mensaje personalizado
+        // Mock for personalized message
         `when`(messageSource.getMessage("app.greeting", arrayOf("Dev"), locale))
             .thenReturn("Hello, Dev!")
 

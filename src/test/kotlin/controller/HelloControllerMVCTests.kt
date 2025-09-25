@@ -11,7 +11,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
-@WebMvcTest(HelloController::class, HelloApiController::class)
+// Test cases for HelloController and HelloApiController
+@WebMvcTest(HelloController::class, HelloApiController::class, ByeApiController::class)
 class HelloControllerMVCTests {
     @Value("\${app.message:Welcome to the Modern Web App!}")
     private lateinit var message: String
@@ -52,6 +53,28 @@ class HelloControllerMVCTests {
     @Test
     fun `should return API response as JSON with status 400`() {
         mockMvc.perform(get("/api/hello"))
+            .andDo(print())
+            .andExpect(status().isBadRequest)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.error", equalTo("Bad Request")))
+            .andExpect(jsonPath("$.status", equalTo(400)))
+            .andExpect(jsonPath("$.message", equalTo("name parameter is required")))
+            .andExpect(jsonPath("$.timestamp").exists())
+    }
+
+    @Test
+    fun `should return API response as JSON Bye`() {
+        mockMvc.perform(get("/api/bye").param("name", "Test"))
+            .andDo(print())
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.message", equalTo("Bye, Test!")))
+            .andExpect(jsonPath("$.timestamp").exists())
+    }
+
+    @Test
+    fun `should return API response as JSON with status 400 Bye`() {
+        mockMvc.perform(get("/api/bye"))
             .andDo(print())
             .andExpect(status().isBadRequest)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
