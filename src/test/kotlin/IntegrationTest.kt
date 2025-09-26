@@ -51,6 +51,16 @@ class IntegrationTest {
     }
 
     @Test
+    fun `should return API response with timestamp bye`() {
+        val response = restTemplate.getForEntity("http://localhost:$port/api/bye?name=Test", String::class.java)
+        
+        assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(response.headers.contentType).isEqualTo(MediaType.APPLICATION_JSON)
+        assertThat(response.body).contains("Bye, Test!")
+        assertThat(response.body).contains("timestamp")
+    }
+
+    @Test
     fun `should serve Bootstrap CSS correctly`() {
         val response = restTemplate.getForEntity("http://localhost:$port/webjars/bootstrap/5.3.3/css/bootstrap.min.css", String::class.java)
         

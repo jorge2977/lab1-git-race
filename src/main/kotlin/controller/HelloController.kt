@@ -46,6 +46,7 @@ class HelloApiController(
         @RequestParam(defaultValue = "") name: String,
         locale: Locale
     ): Map<String, String> {
+        // Validate that name is provided
         if (name.isBlank()) {
             throw IllegalArgumentException("name parameter is required")
         }
@@ -68,6 +69,7 @@ class ByeApiController(
         @RequestParam(defaultValue = "") name: String,
         locale: Locale
     ): Map<String, String> {
+        // Validate that name is provided
         if (name.isBlank()) {
             throw IllegalArgumentException("name parameter is required")
         }

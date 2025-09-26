@@ -149,7 +149,7 @@ The development Docker setup includes:
 
 Once the Docker container is running, you can access:
 - **Web Interface**: http://localhost:8080
-- **REST API**: http://localhost:8080/api/hello
+- **REST API**: http://localhost:8080/api/hello http://localhost:8080/api/bye
 - **Health Check**: http://localhost:8080/actuator/health
 - **LiveReload**: Automatically enabled for CSS/JS changes
 - **Swagger UI**: http://localhost:8080/swagger-ui.html 

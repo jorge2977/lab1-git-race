@@ -18,6 +18,9 @@ Test Changes: The test cases have been updated to reflect the changes made in th
 ## Technical Decisions
 It´s beean created a GlobalExceptionHandler class to handle exceptions globally across the application. In this case it´s been used to handle IllegalArgumentException and return a 400 Bad Request status with a descriptive error message when the 'name' parameter is missing or empty. In general there´s no been big technical decisions, the main goal it´s been to learn about the standart and modifiy little details of the project.
 
+The MVC pattern could be used by creating different classes for the model, for example a Greeting class to represent the greeting message, and a GreetingService class to handle the business logic of generating the greeting message. However, for simplicity, the logic has been kept within the controller itself.
+
+
 ## Learning Outcomes
 From this assignment, I learned how to work with Spring Boot to create a web application. Also I got a first contact with Kotlin, a programming language that I had never used before. I learned how to create controllers, services, and repositories in Spring Boot, as well as how to handle requests and responses. Additionally, I learnt about the lenguage standart and how to implement it in a web application. The tests were also an interesting part, to understand how to write unit tests and integration tests for the application. 
 
